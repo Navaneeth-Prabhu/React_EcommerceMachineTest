@@ -1,43 +1,46 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
+import { CartContext } from '../contexts/CartContext'
 
-const products = [
-  {
-    id: 1,
-    name: 'Throwback Hip Bag',
-    href: '#',
-    color: 'Salmon',
-    price: '$90.00',
-    quantity: 1,
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-    imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-  },
-  {
-    id: 2,
-    name: 'Medium Stuff Satchel',
-    href: '#',
-    color: 'Blue',
-    price: '$32.00',
-    quantity: 1,
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-    imageAlt:
-      'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-  },
-  // More products...
-]
+// const products = [
+//   {
+//     id: 1,
+//     name: 'Throwback Hip Bag',
+//     href: '#',
+//     color: 'Salmon',
+//     price: '$90.00',
+//     quantity: 1,
+//     imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
+//     imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
+//   },
+//   {
+//     id: 2,
+//     name: 'Medium Stuff Satchel',
+//     href: '#',
+//     color: 'Blue',
+//     price: '$32.00',
+//     quantity: 1,
+//     imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
+//     imageAlt:
+//       'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
+//   },
+//   // More products...
+// ]
 
-export default function Cart({open,setOpen}) {
+export default function Cart({open,setOpen,data}) {
 
     const [products, setproducts] = useState([])
-  useEffect (() => {
-    let data = localStorage.getItem('products')
-    // let data = response.json()
-    console.log(data);
-    // setproducts(data)
+    const {cart,removeProduct,increment,decrement} = useContext(CartContext)
+ 
+//   useEffect (() => {
+//     let data = localStorage.getItem('products')
+//     // let data = response.json()
+//     console.log(data);
+//     // setproducts(data)
 
-  }, [])
-  
+//   }, [])
+//   const {id,title,price,amount,image} = data
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -86,7 +89,7 @@ export default function Cart({open,setOpen}) {
                       <div className="mt-8">
                         <div className="flow-root">
                           <ul role="list" className="-my-6 divide-y divide-gray-200">
-                            {products?.map((product) => (
+                            {cart?.map((product) => (
                               <li key={product.id} className="flex py-6">
                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                   <img
@@ -103,19 +106,20 @@ export default function Cart({open,setOpen}) {
                                         <a href={product.href}>{product.title}</a>
                                       </h3>
                                       {/* <p className="ml-4">{product.price}</p> */}
-                                      {/* <p className="ml-4">{`Rs ${price*quantity}`}</p> */}
+                                      <p className="ml-4">{`Rs ${product.price*product.amount}`}</p>
                                     </div>
                                     <p className="mt-1 text-sm text-gray-500">{product.color}</p>
                                   </div>
                                   <div className="flex flex-1 items-end justify-between text-sm max-w-[150px]">
-                                    <div className="plus cursor-pointer ">+</div>
-                                    {/* <p className="text-gray-500">Qty {quantity}</p> */}
-                                    <div className="minus cursor-pointer">-</div>
+                                    <div className="plus cursor-pointer " onClick={()=>increment(product.id)}>+</div>
+                                    <p className="text-gray-500">Qty {product.amount}</p>
+                                    <div className="minus cursor-pointer" onClick={()=>decrement(product.id)}>-</div>
 
                                     <div className="flex">
                                       <button
                                         type="button"
                                         className="font-medium text-indigo-600 hover:text-indigo-500"
+                                        onClick={()=>removeProduct(product.id)}
                                       >
                                         Remove
                                       </button>

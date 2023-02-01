@@ -9,31 +9,28 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 // import Rating from '@mui/material/Rating';
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-
+import Sidebar from '../components/Sidebar'
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import { yellow } from "@mui/material/colors";
 import ProductOverview from "../components/PorductOverview";
+import { CartContext } from "../contexts/CartContext";
 
-// const StyledRating = styled()({
-//   '& .MuiRating-iconFilled': {
-//     color: '#ff6d75',
-//   },
-//   '& .MuiRating-iconHover': {
-//     color: '#ff3d47',
-//   },
-// });
 
 function Home() {
   const [open, setOpen] = useState(false);
+  const [CartOpen, setCartOpen] = useState(false)
   const [choosedProduct, setchoosedProduct] = useState(null);
 
   const { products } = useContext(ProductContext);
+  const {addToCart}=useContext(CartContext)
 
-  const addToCart = (product) => {
-    console.log(product);
-    localStorage.setItem("products", JSON.stringify(product));
-  };
-  console.log(products);
+
+  const setCart=(product,id)=>{
+    setCartOpen(!CartOpen)
+    addToCart(product,id)
+  }
+
+  
   return (
     <>
       <Navbar />
@@ -58,7 +55,7 @@ function Home() {
                     className="max-h-[160px] group-hover:scale-110 transition duration-300"
                   />
                 </div>
-                <div className="absolute top-2 right-3 z-2">
+                <div className="absolute top-2 right-3 z-5 cursor-pointer"  onClick={()=>console.log('liked')}>
                   {/* <StyledRating
         name="customized-color"
         defaultValue={0}
@@ -67,7 +64,7 @@ function Home() {
         icon={<FavoriteIcon fontSize="inherit" />}
         emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
       /> */}
-                  <FavoriteRoundedIcon />
+                  <FavoriteRoundedIcon  />
                 </div>
                 {/* <div className="mt-4 flex justify-between"> */}
                 <div
@@ -93,13 +90,13 @@ function Home() {
                   </p>
                 </div>
                 <div className="button flex gap-2 absolute bottom-2 left-2">
-                  <Button variant="contained" sx={{ backgroundColor: yellow }}>
+                  <Button variant="contained" onClick={()=>setCart(product,product.id,true)} sx={{ backgroundColor: yellow }}>
                     Buy Now
                   </Button>
-                  <Button variant="outlined" onClick={() => addToCart(product)}>
+                  <Button variant="outlined" onClick={() => addToCart(product,product.id)}>
                     Add to cart{" "}
                   </Button>
-
+                  
                   {/* <IconButton color="primary" aria-label="add to shopping cart">
         <AddShoppingCartIcon />
       </IconButton> */}
@@ -109,6 +106,8 @@ function Home() {
           </div>
         </div>
       </div>
+      
+      { <Sidebar open={CartOpen} setOpen={setCartOpen}/>}
       {/* { <ProductOverview open={open} setOpen={setOpen} choosedProduct={choosedProduct}/>} */}
     </>
 

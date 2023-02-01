@@ -1,8 +1,9 @@
-import React,{useState} from 'react'
+import React,{useContext, useState} from 'react'
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Cart from './Sidebar'
+// import OpenCartProvider from '../contexts/OpencartContext'
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
