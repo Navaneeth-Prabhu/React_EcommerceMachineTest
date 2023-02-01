@@ -7,6 +7,7 @@ const WishProvider=({children})=> {
     const [wish, setwish] = useState([])
 
     const addToWish =(product,id)=>{
+        // console.log(`${id} wished`)
         let NewPro = {...product}
         const wishPro = wish.find((item)=>{
             return item.id ===id;
@@ -18,12 +19,13 @@ const WishProvider=({children})=> {
             })
             setwish(newWish)
         }else{
-            setwish(NewPro)
+            setwish([...wish,NewPro])
         }
     }
+    console.log(wish)
 
   return (
-    <WishContext.Provider value={{addToWish}}>{children}</WishContext.Provider>
+    <WishContext.Provider value={{addToWish,wish}}>{children}</WishContext.Provider>
   )
 }
 

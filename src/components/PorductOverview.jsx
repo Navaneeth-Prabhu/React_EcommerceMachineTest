@@ -97,7 +97,7 @@ export default function ProductView({open,setOpen,choosedProduct}) {
                                 <StarIcon
                                   key={rating}
                                   className={classNames(
-                                    choosedProduct.rating.rate > rating ? 'text-gray-900' : 'text-gray-200',
+                                    choosedProduct?.rating.rate > rating ? 'text-gray-900' : 'text-gray-200',
                                     'h-5 w-5 flex-shrink-0'
                                   )}
                                   aria-hidden="true"
@@ -106,7 +106,7 @@ export default function ProductView({open,setOpen,choosedProduct}) {
                             </div>
                             <p className="sr-only">{choosedProduct?.rate} out of 5 stars</p>
                             <a href="" className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                              {choosedProduct.rating.count} reviews
+                              {choosedProduct?.rating.count} reviews
                             </a>
                           </div>
                         </div>
@@ -118,42 +118,6 @@ export default function ProductView({open,setOpen,choosedProduct}) {
                         </h3>
 
                         <form>
-                          {/* Colors */}
-                          <div>
-                            <h4 className="text-sm font-medium text-gray-900">Color</h4>
-
-                            <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-4">
-                              <RadioGroup.Label className="sr-only"> Choose a color </RadioGroup.Label>
-                              <span className="flex items-center space-x-3">
-                                {product.colors.map((color) => (
-                                  <RadioGroup.Option
-                                    key={color.name}
-                                    value={color}
-                                    className={({ active, checked }) =>
-                                      classNames(
-                                        color.selectedClass,
-                                        active && checked ? 'ring ring-offset-1' : '',
-                                        !active && checked ? 'ring-2' : '',
-                                        '-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none'
-                                      )
-                                    }
-                                  >
-                                    <RadioGroup.Label as="span" className="sr-only">
-                                      {' '}
-                                      {color.name}{' '}
-                                    </RadioGroup.Label>
-                                    <span
-                                      aria-hidden="true"
-                                      className={classNames(
-                                        color.class,
-                                        'h-8 w-8 border border-black border-opacity-10 rounded-full'
-                                      )}
-                                    />
-                                  </RadioGroup.Option>
-                                ))}
-                              </span>
-                            </RadioGroup>
-                          </div>
 
                           {/* Sizes */}
                           <div className="mt-10">

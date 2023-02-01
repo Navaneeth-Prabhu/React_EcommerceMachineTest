@@ -6,7 +6,7 @@ function CartProvider({ children }) {
   const [cart, setcart] = useState([]);
 
   const addToCart = (product,id) => {
-    let NewcartItem = { ...product, amount: 1 };
+    let NewcartItem = { ...product, amount: 1 ,total:product.price};
     const cartItem = cart.find((item) => {
       return item.id === id;
     });
@@ -14,7 +14,7 @@ function CartProvider({ children }) {
     if (cartItem) {
       const NewItem = cart.map((item) => {
         if (item.id === id) {
-          return { ...item, amount: cartItem.amount + 1 };
+          return { ...item, amount: cartItem.amount + 1, total: cartItem.total+item.price};
         } else {
           return item;
         }
@@ -46,7 +46,7 @@ function CartProvider({ children }) {
     if(cartItem){
       const newCart = cart.map((item)=>{
         if(item.id===id){
-          return {...item,amount:cartItem.amount -1}
+          return {...item,amount:cartItem.amount -1, total: cartItem.total-item.price}
         }else{
           return item
         }
