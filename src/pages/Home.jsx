@@ -262,7 +262,6 @@ const label = {inputProps:{'aria-label':'Checkbox demo'}}
                 <div className="lg:col-span-3">
                   {/* Replace with your content */}
                   <Product products={product} />
-                  {/* <div className="h-96 rounded-lg border-4 border-dashed border-gray-200 lg:h-full" /> */}
                   {/* /End replace */}
                 </div>
               </div>
@@ -270,7 +269,6 @@ const label = {inputProps:{'aria-label':'Checkbox demo'}}
           </main>
         </div>
       </div>
-      {/* <Product products={itmesFilter} /> */}
     </>
   );
 }

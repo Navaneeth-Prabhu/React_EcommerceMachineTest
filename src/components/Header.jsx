@@ -113,15 +113,6 @@ function Header({ setSearchValue, setwhichFilter }) {
 
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   <div className="flex space-x-4">
-                    {/* <div
-                      className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium cursor-pointer"
-                      onClick={() => setOpenWish(!open)}
-                    >
-                      <div>MyWishlist </div>
-                      <div className="bg-red-500 absolute rounded-full right-[10rem] top-2 text-[12px] w-[18px] h-[18px]">
-                        <p className="text-center"> {WishAmount}</p>
-                      </div>
-                    </div> */}
                     <div
                       className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium cursor-pointer"
                       onClick={handleclick}
@@ -141,17 +132,6 @@ function Header({ setSearchValue, setwhichFilter }) {
                       </div>
                     </div>
                   </div>
-                  {/* <button
-                    type="button"
-                    className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                  >
-                    <span className="sr-only">View notifications</span>
-                    <BellIcon
-                      className="h-6 w-6"
-                      onClick={() => setOpen(!open)}
-                      aria-hidden="true"
-                    />
-                  </button> */}
 
                   {/* Profile dropdown */}
                   <Menu as="div" className="relative ml-3">

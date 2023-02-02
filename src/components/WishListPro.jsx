@@ -1,27 +1,19 @@
 import React, { useContext, useState } from "react";
-
-import Navbar from "../components/Header";
-
 import { Button, IconButton } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import { ProductContext } from "../contexts/ProductContext";
 import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Sidebar from "../components/Sidebar";
 import { CartContext } from "../contexts/CartContext";
 import { WishContext } from "../contexts/WishContext";
-import { hover } from "@testing-library/user-event/dist/hover";
 import ProductOverview from "../components/PorductOverview";
-import { useEffect } from "react";
+
 
 function Wishlist({  }) {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const [open, setOpen] = useState(false);
   const [CartOpen, setCartOpen] = useState(false);
-  const [choosedProduct, setchoosedProduct] = useState(null);
-  // const [Wished, setWished] = useState([]);
+  const [choosedProduct, setchoosedProduct] = useState(null)
 
   const { wish } = useContext(WishContext);
   const { addToCart } = useContext(CartContext);
@@ -86,9 +78,6 @@ function Wishlist({  }) {
               </p>
             </div>
             <div className="button flex gap-2 absolute bottom-2 left-2">
-              {/* <Button variant="contained " onClick={()=>setCart(product,product.id,true)} sx={{bgcolor:'secondary.main',fontSize:'12px'}}>
-          Buy Now
-        </Button> */}
               <Button
                 variant="outlined"
                 onClick={() => addToCart(product, product.id)}
@@ -101,9 +90,6 @@ function Wishlist({  }) {
                 Add to cart{" "}
               </Button>
 
-              {/* <IconButton color="primary" aria-label="add to shopping cart">
-<AddShoppingCartIcon />
-</IconButton> */}
             </div>
           </div>
         ))}

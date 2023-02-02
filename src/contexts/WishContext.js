@@ -4,7 +4,7 @@ import React,{createContext,useEffect,useState} from 'react'
 export const WishContext =createContext()
 const WishProvider=({children})=> {
 
-    const [wish, setwish] = useState(() => JSON.parse(localStorage.getItem('abc')) || [])
+    const [wish, setwish] = useState(() => JSON.parse(localStorage.getItem('Wishlist')) || [])
     const [WishAmount,setWishAmount] = useState(0)
 
 
@@ -29,11 +29,7 @@ const WishProvider=({children})=> {
         }
     }
     var wishlist = JSON.stringify(wish)
-    localStorage.setItem("abc",wishlist)
-    // console.log(".....",wish);
-    // console.log(wish)
-
-
+    localStorage.setItem("Wishlist",wishlist)
 
 
 

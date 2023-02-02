@@ -1,30 +1,20 @@
 import React, { useContext, useState } from "react";
-
-import Navbar from "../components/Header";
-
-import { Button, IconButton } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import { ProductContext } from "../contexts/ProductContext";
 import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Sidebar from "../components/Sidebar";
 import { CartContext } from "../contexts/CartContext";
 import { WishContext } from "../contexts/WishContext";
-import { hover } from "@testing-library/user-event/dist/hover";
 import ProductOverview from "../components/PorductOverview";
-import { useEffect } from "react";
-// import red from "@material-ui/core/colors/red";
+
 
 function Product({ products }) {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const [open, setOpen] = useState(false);
   const [CartOpen, setCartOpen] = useState(false);
   const [choosedProduct, setchoosedProduct] = useState(null);
-  // const [Wished, setWished] = useState([]);
 
-  const {wish} = useContext(WishContext)
+  const { wish } = useContext(WishContext);
   const { addToCart } = useContext(CartContext);
   const { addToWish } = useContext(WishContext);
 
@@ -42,39 +32,54 @@ function Product({ products }) {
                   <img
                     src={product.image}
                     alt={product.imageAlt}
-                    
                     className="max-h-[160px] group-hover:scale-110 transition duration-300"
                   />
                 </div>
                 <div className="absolute top-0 right-0 z-5 cursor-pointer">
                   {wish.find((val) => val.id === product.id) ? (
                     <Checkbox
-                      icon={<Favorite   sx={{ 
-                        color: "white", 
-                        fill: "red", 
-                        borderRadius: "50%" 
-                      }}/>}
-                      checkedIcon={<Favorite   sx={{ 
-                        color: "white", 
-                        fill: "red", 
-                        borderRadius: "50%" 
-                      }}/>}
+                      icon={
+                        <Favorite
+                          sx={{
+                            color: "white",
+                            fill: "red",
+                            borderRadius: "50%",
+                          }}
+                        />
+                      }
+                      checkedIcon={
+                        <Favorite
+                          sx={{
+                            color: "white",
+                            fill: "red",
+                            borderRadius: "50%",
+                          }}
+                        />
+                      }
                       onClick={() => {
                         addToWish(product, product.id);
                       }}
                     />
                   ) : (
                     <Checkbox
-                      icon={<FavoriteBorder sx={{ 
-                        color: "white", 
-                        fill: "gray", 
-                        borderRadius: "50%" 
-                      }}/>}
-                      checkedIcon={<FavoriteBorder sx={{ 
-                        color: "white", 
-                        fill: "gray", 
-                        borderRadius: "50%" 
-                      }}/>}
+                      icon={
+                        <FavoriteBorder
+                          sx={{
+                            color: "white",
+                            fill: "gray",
+                            borderRadius: "50%",
+                          }}
+                        />
+                      }
+                      checkedIcon={
+                        <FavoriteBorder
+                          sx={{
+                            color: "white",
+                            fill: "gray",
+                            borderRadius: "50%",
+                          }}
+                        />
+                      }
                       onClick={() => addToWish(product, product.id)}
                     />
                   )}
@@ -118,12 +123,11 @@ function Product({ products }) {
                     Add to cart{" "}
                   </Button> */}
                   <button
-                            className="mt-7 flex w-full items-center justify-center rounded-md border-2 border-yellow-500  py-2 px-4 text-small font-medium text-black  hover:bg-yellow-500  hover:text-white"
-                            onClick={() => addToCart(product, product.id)}
-                          >
-                            Add to Cart
-                          </button>
-
+                    className="mt-7 flex w-full items-center justify-center rounded-md border-2 border-yellow-500  py-2 px-4 text-small font-medium text-black  hover:bg-yellow-500  hover:text-white"
+                    onClick={() => addToCart(product, product.id)}
+                  >
+                    Add to Cart
+                  </button>
                 </div>
               </div>
             ))}

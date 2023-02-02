@@ -13,7 +13,7 @@ const ProductPro = ({ children }) => {
     };
     fetchData();
   }, []);
-  // console.log(products,"......................")
+
   return (
     <ProductContext.Provider value={{ products }}>
       {children}
