@@ -1,21 +1,14 @@
 import { Fragment, useContext, useEffect, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { CartContext } from '../contexts/CartContext'
+import { WishContext } from '../contexts/WishContext'
 
 
-export default function Cart({open,setOpen,data}) {
+export default function WishList({open,setOpen,data}) {
 
-    const {cart,removeProduct,increment,decrement} = useContext(CartContext)
-    // console.log(cart,"cart")
-    let totatlvar =cart?.map(value => value.total)
-    let total = totatlvar.length?
-      totatlvar?.reduce((total,val)=>total + val).toFixed(2):  0
-      
-    console.log("''''value",totatlvar)
+    const [products, setproducts] = useState([])
+    const {wish} = useContext(WishContext)
 
-    // let total = 1
-    
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -48,7 +41,7 @@ export default function Cart({open,setOpen,data}) {
                   <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                     <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
                       <div className="flex items-start justify-between">
-                        <Dialog.Title className="text-lg font-medium text-gray-900">Shopping cart</Dialog.Title>
+                        <Dialog.Title className="text-lg font-medium text-gray-900">Wishlist</Dialog.Title>
                         <div className="ml-3 flex h-7 items-center">
                           <button
                             type="button"
@@ -64,7 +57,7 @@ export default function Cart({open,setOpen,data}) {
                       <div className="mt-8">
                         <div className="flow-root">
                           <ul role="list" className="-my-6 divide-y divide-gray-200">
-                            {cart?.map((product) => (
+                            {wish?.map((product) => (
                               <li key={product.id} className="flex py-6">
                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                   <img
@@ -81,25 +74,19 @@ export default function Cart({open,setOpen,data}) {
                                         <a href={product.href}>{product.title}</a>
                                       </h3>
                                       {/* <p className="ml-4">{product.price}</p> */}
-                                      <p className="ml-4">{`Rs ${(product.price*product.amount).toFixed(2)}`}</p>
+                                      <p className="ml-4">Rs {product.price}</p>
                                     </div>
                                     <p className="mt-1 text-sm text-gray-500">{product.color}</p>
                                   </div>
-                                  <div className="flex flex-1 items-end justify-between text-sm max-w-[550px]">
-                                    <div className='flex flex-1 gap-[20px] items-center'>
-                                    <div className="plus cursor-pointer border rounded-sm p-1" onClick={()=>increment(product.id)}>+</div>
-                                    <p className="text-gray-500">Qty {product.amount}</p>
-                                    <div className="minus cursor-pointer border rounded-sm p-1" onClick={()=>decrement(product.id)}>-</div>
-                                    </div>
-
+                                  <div className="flex flex-1 items-end justify-between text-sm max-w-[150px]">
                                     <div className="flex">
-                                      <button
+                                      {/* <button
                                         type="button"
-                                        className="font-medium text-indigo-600 hover:text-indigo-500 border rounded-md px-4 py-2 drop-shadow-md"
+                                        className="font-medium text-indigo-600 hover:text-indigo-500"
                                         onClick={()=>removeProduct(product.id)}
                                       >
                                         Remove
-                                      </button>
+                                      </button> */}
                                     </div>
                                   </div>
                                 </div>
@@ -110,34 +97,7 @@ export default function Cart({open,setOpen,data}) {
                       </div>
                     </div>
 
-                    <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
-                      <div className="flex justify-between text-base font-medium text-gray-900">
-                        <p>Subtotal</p>
-                        <p>Rs.{total}</p>
-                      </div>
-                      <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
-                      <div className="mt-6">
-                        <a
-                          href="/"
-                          className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-                        >
-                          Checkout
-                        </a>
-                      </div>
-                      <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
-                        <p>
-                          or
-                          <button
-                            type="button"
-                            className="font-medium text-indigo-600 hover:text-indigo-500"
-                            onClick={() => setOpen(false)}
-                          >
-                            Continue Shopping
-                            <span aria-hidden="true"> &rarr;</span>
-                          </button>
-                        </p>
-                      </div>
-                    </div>
+
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

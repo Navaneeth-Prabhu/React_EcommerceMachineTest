@@ -4,11 +4,13 @@ import { styled, alpha } from "@mui/material/styles";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import Cart from "./Sidebar";
 import InputBase from "@mui/material/InputBase";
-// import { Search } from '@mui/icons-material'
 import SearchIcon from "@mui/icons-material/Search";
-// import OpenCartProvider from '../contexts/OpencartContext'
+import Cart from "./Sidebar";
+import Wish from "./MyWish";
+import { CartContext } from "../contexts/CartContext";
+import { WishContext } from "../contexts/WishContext";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -53,13 +55,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const navigation = [
-  { name: "MyWishlist", href: "#", current: false },
-  { name: "MyCart", href: "#", current: false },
-];
-
-function Header({ setSearchValue ,setwhichFilter}) {
+function Header({ setSearchValue, setwhichFilter }) {
+  const { cartAmount } = useContext(CartContext);
+  const { WishAmount } = useContext(WishContext);
   const [open, setOpen] = useState(false);
+  const [openWish, setOpenWish] = useState(false);
+  const navigate = useNavigate();
+
+  function handleclick() {
+    navigate("/wishlist");
+  }
+  function home() {
+    navigate("/");
+  }
 
   return (
     <>
@@ -81,17 +89,12 @@ function Header({ setSearchValue ,setwhichFilter}) {
                 </div>
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="flex flex-shrink-0 items-center">
-                    <img
-                      className="block h-8 w-auto lg:hidden"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                      alt="Your Company"
-                    />
-                    <img
-                      className="hidden h-8 w-auto lg:block"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                      alt="Your Company"
-                    />
+                    <p className="text-slate-100" onClick={() => home()}>
+                      BEEONE
+                    </p>
                   </div>
+                  <div className="hidden sm:block">
+
                   <Search>
                     <SearchIconWrapper>
                       <SearchIcon />
@@ -101,32 +104,44 @@ function Header({ setSearchValue ,setwhichFilter}) {
                       inputProps={{ "aria-label": "search" }}
                       onChange={(e) => {
                         setSearchValue(e.target.value);
-                        setwhichFilter("search")
+                        setwhichFilter("search");
                       }}
                     />
                   </Search>
-                  <div className="hidden sm:ml-6 sm:block"></div>
+                  </div>
                 </div>
 
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "px-3 py-2 rounded-md text-sm font-medium"
-                        )}
-                        aria-current={item.current ? "page" : undefined}
-                      >
-                        {item.name}
-                      </a>
-                    ))}
+                    {/* <div
+                      className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium cursor-pointer"
+                      onClick={() => setOpenWish(!open)}
+                    >
+                      <div>MyWishlist </div>
+                      <div className="bg-red-500 absolute rounded-full right-[10rem] top-2 text-[12px] w-[18px] h-[18px]">
+                        <p className="text-center"> {WishAmount}</p>
+                      </div>
+                    </div> */}
+                    <div
+                      className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium cursor-pointer"
+                      onClick={handleclick}
+                    >
+                      <div>MyWishlist </div>
+                      <div className="bg-red-500 absolute rounded-full right-[8.5rem] top-2 text-[12px] w-[18px] h-[18px]">
+                        <p className="text-center"> {WishAmount}</p>
+                      </div>
+                    </div>
+                    <div
+                      className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium cursor-pointer"
+                      onClick={() => setOpen(!open)}
+                    >
+                      <div>MyCart </div>
+                      <div className="bg-red-500 absolute rounded-full right-[3rem] top-2 text-[12px] w-[18px] h-[18px]">
+                        <p className="text-center">{cartAmount}</p>
+                      </div>
+                    </div>
                   </div>
-                  <button
+                  {/* <button
                     type="button"
                     className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                   >
@@ -136,7 +151,7 @@ function Header({ setSearchValue ,setwhichFilter}) {
                       onClick={() => setOpen(!open)}
                       aria-hidden="true"
                     />
-                  </button>
+                  </button> */}
 
                   {/* Profile dropdown */}
                   <Menu as="div" className="relative ml-3">
@@ -208,28 +223,25 @@ function Header({ setSearchValue ,setwhichFilter}) {
 
             <Disclosure.Panel className="sm:hidden">
               <div className="space-y-1 px-2 pt-2 pb-3">
-                {navigation.map((item) => (
-                  <Disclosure.Button
-                    key={item.name}
-                    as="a"
-                    href={item.href}
-                    className={classNames(
-                      item.current
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "block px-3 py-2 rounded-md text-base font-medium"
-                    )}
-                    aria-current={item.current ? "page" : undefined}
-                  >
-                    {item.name}
-                  </Disclosure.Button>
-                ))}
+              <BellIcon
+                      className="h-6 w-6"
+                      onClick={() => handleclick}
+                      aria-hidden="true"
+                    />
+                <p
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium cursor-pointer"
+                  onClick={() => setOpen(!open)}
+                >
+                  MyCart
+                </p>
+                {/* </Disclosure.Button> */}
               </div>
             </Disclosure.Panel>
           </>
         )}
       </Disclosure>
       {<Cart open={open} setOpen={setOpen} />}
+      {<Wish open={openWish} setOpen={setOpenWish} />}
     </>
   );
 }
