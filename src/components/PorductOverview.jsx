@@ -106,13 +106,13 @@ export default function ProductView({open,setOpen,choosedProduct}) {
                           </div>
 
                           <button
-                            className="mt-6 flex w-full items-center justify-center rounded-md border border-cyan-700  py-3 px-8 text-base font-medium text-bg-indigo-600  hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:text-white"
+                            className="mt-6 flex w-full items-center justify-center rounded-md border border-fuchsia-800  py-3 px-8 text-base font-medium text-fuchsia-800  hover:bg-fuchsia-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:text-white"
                             onClick={() => addToCart(choosedProduct,choosedProduct.id)}
                           >
                             Add to bag
                           </button>
                           <button
-                            className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-yellow-500 py-3 px-8 text-base font-medium text-white hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                             onClick={()=>setCart(choosedProduct,choosedProduct.id,true)}
                           >
                             Buy Now

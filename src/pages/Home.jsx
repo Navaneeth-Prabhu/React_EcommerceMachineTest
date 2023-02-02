@@ -121,6 +121,67 @@ const label = {inputProps:{'aria-label':'Checkbox demo'}}
                     {/* Filters */}
                     <form className="mt-4 border-t border-gray-200">
                       <h3 className="sr-only">Categories</h3>
+
+                      {filters.map((section) => (
+                    <Disclosure
+                      as="div"
+                      key={section.id}
+                      className="border-b border-gray-200 py-6"
+                    >
+                      {({ open }) => (
+                        <>
+                          <h3 className="-my-3 flow-root">
+                            <Disclosure.Button className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
+                              <span className="font-medium text-gray-900">
+                                {section.name}
+                              </span>
+                              <span className="ml-6 flex items-center">
+                                {open ? (
+                                  <MinusIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
+                                ) : (
+                                  <PlusIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
+                                )}
+                              </span>
+                            </Disclosure.Button>
+                          </h3>
+                          <Disclosure.Panel className="pt-6">
+                            <div className="space-y-4">
+                              <form>
+
+                              {section.options.map((option, optionIdx) => (
+                                <div
+                                  key={option.value}
+                                  className="flex items-center"
+                                >
+                                  {
+                                  <Checkbox
+                                    {...label}
+                                    onChange={() =>
+                                    CategoryFilter(option.label,false)
+                                  }
+                                  />
+                                }
+                                  <label
+                                    htmlFor={`filter-${section.id}-${optionIdx}`}
+                                    className="ml-3 text-sm text-gray-600"
+                                  >
+                                    {option.label}
+                                  </label>
+                                </div>
+                              ))}
+                              </form>
+                            </div>
+                          </Disclosure.Panel>
+                        </>
+                      )}
+                    </Disclosure>
+                  ))}
                     </form>
                   </Dialog.Panel>
                 </Transition.Child>
@@ -146,26 +207,7 @@ const label = {inputProps:{'aria-label':'Checkbox demo'}}
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <div className="py-1">
-                        {/* {sortOptions.map((option) => (
-                        <Menu.Item key={option.name}>
-                          {({ active }) => (
-                            <a
-                              href={option.href}
-                              className={classNames(
-                                option.current ? 'font-medium text-gray-900' : 'text-gray-500',
-                                active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm'
-                              )}
-                            >
-                              {option.name}
-                            </a>
-                          )}
-                        </Menu.Item>
-                      ))} */}
-                      </div>
-                    </Menu.Items>
+
                   </Transition>
                 </Menu>
 
